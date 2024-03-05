@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Student Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<a href="https://dainam.edu.vn/vi" target="_blank">
+    <img src="banner_uit_0.png" title="Đại học Đại Nam" id="logo">
+</a>
+
+<img src="https://www.uit.edu.vn/sites/vi/files/uploads/images/hcld.png" style="width: 85px" id="hcld">
+
+<marquee>
+    Đại học Đại Nam - Học để thay đổi
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    Wedsite: <a href="https://www.uit.edu.vn/" target="_blank">https://www.uit.edu.vn/</a>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    SĐT: 02837252002
+</marquee>
+
+
+<h1 style="text-align: center" class="text"> QUẢN LÝ HỌC VIÊN </h1>
+
+<table style=" border: 1px solid black; width: 58%; float: right">
+    <thead>
+    <tr>
+        <th style="font-size: 40px" colspan="7">Danh sách học viên</th>
+    </tr>
+    <tr>
+        <th>STT</th>
+        <th>Họ tên</th>
+        <th>Ngày sinh</th>
+        <th>Giới tính</th>
+        <th>Lớp</th>
+        <th>Điểm trung bình</th>
+        <th>Tùy chọn</th>
+    </tr>
+    </thead>
+    <tbody id="bang2">
+    </tbody>
+</table>
+
+<table border="1" style="width:40%; height: 30-0px" ;>
+    <tr id="id1">
+        <th colspan="2" id="tthv"> Thông tin học viên</th>
+    </tr>
+
+    <tr style="text-align: center">
+        <th>STT</th>
+        <td><input type="number" id="id" disabled></td>
+
+    </tr>
+    <tr style="text-align: center">
+        <th>Họ tên</th>
+        <td><input type="text" id="fullname" placeholder="Nhập tên của bạn"></td>
+    </tr>
+    <tr style="text-align: center">
+        <th>Ngày sinh</th>
+        <td><input type="date" id="date" style="width: 170px"></td>
+    </tr>
+    <tr style="text-align: center">
+        <th>Giới tính</th>
+        <td><select id="gender" style="width: 175px;">
+            <option>Nam</option>
+            <option>Nữ</option>
+        </select></td>
+    </tr>
+    <tr style="text-align: center">
+        <th>Lớp</th>
+        <td><input type="text" id="grade"></td>
+    </tr>
+    <tr style="text-align: center">
+        <th>Điểm trung bình</th>
+        <td><input type="text" id="img"></td>
+    </tr>
+    <tr>
+        <th></th>
+        <td>
+            <button class="snip1582" id="add" onclick="add()" style="font-family: 'Times New Roman'">Add</button>
+        </td>
+    </tr>
+</table>
+
+
+<div class="footer">
+
+    <div class="row">
+        <div class="column">
+            <img src="logo1.png">
+        </div>
+
+        <div class="column">
+            <h2>TRƯỜNG ĐẠI HỌC ĐẠI NAM</h2>
+            <p>
+                Địa chỉ: Số 1 Phố Xốm - Phú Lãm - Hà Đông - Hà Nội
+            </p>
+            <p>
+                Điện thoại: (024) 35577799
+            </p>
+        </div>
+
+        <div class="column">
+            <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.1204826720154!2d105.75521357430371!3d20.947676190560397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313452eaa9c461c3%3A0x2a3e1c421f299adc!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyDEkOG6oWkgTmFt!5e0!3m2!1svi!2s!4v1709139365448!5m2!1svi!2s"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
+
+<script>
+    let names = JSON.parse(localStorage.getItem("names"));
+    if (!Array.isArray(names)) {
+        names = [];
+    }
+
+    let divShow = document.getElementById("bang2");
+    show();
+
+
+    function show() {
+        let str = "";
+        for (let i = 0; i < names.length; i++) {
+            names[i][0] = i + 1
+            str += `<tr>
+                        <td style="text-align: center">${names[i][0]}</td>
+                        <td>${names[i][1]}</td>
+                        <td>${names[i][2]}</td>
+                        <td>${names[i][3]}</td>
+                        <td>${names[i][4]}</td>
+                        <td>${names[i][5]}</td>
+
+                        <td>
+
+                        <button onclick="xoa(${i})">Delete</button>
+                        </td>
+                        </tr>`
+
+        }
+        divShow.innerHTML = str
+        localStorage.setItem("names", JSON.stringify(names));
+    }
+
+    function tralai() {
+        document.getElementById("id").value = ""
+        document.getElementById("fullname").value = ""
+        document.getElementById("date").value = ""
+        document.getElementById("gender").value = ""
+        document.getElementById("grade").value = ""
+        document.getElementById("img").value = ""
+    }
+
+    // let index = 1
+    function add() {
+        // let id = index
+        let id = names.length
+        let name = document.getElementById("fullname").value;
+        let date = document.getElementById("date").value;
+        let gender = document.getElementById("gender").value;
+        let grade = document.getElementById("grade").value;
+        let img = document.getElementById("img").value
+        names.push([id, name, date, gender, grade, img]);
+        localStorage.setItem("names", JSON.stringify(names));
+        show();
+        tralai()
+        // index ++
+        id = names.length
+
+    }
+
+    function xoa(i) {
+        names.splice(i, 1)
+        localStorage.setItem("names", JSON.stringify(names));
+        show()
+        // index--
+    }
+
+    let a = 0
+
+    function edit(i) {
+        document.getElementById("id").value = i + 1
+        document.getElementById("fullname").value = names[i][1]
+        document.getElementById("date").value = names[i][2]
+        document.getElementById("gender").value = names[i][3]
+        document.getElementById("grade").value = names[i][4]
+        document.getElementById("img").value = names[i][5]
+        a = i
+    }
+
+    function save() {
+        let id = document.getElementById("id").value;
+        let name = document.getElementById("fullname").value;
+        let date = document.getElementById("date").value;
+        let gender = document.getElementById("gender").value;
+        let grade = document.getElementById("grade").value;
+        let img = document.getElementById("img").value
+        names[a][1] = name
+        names[a][2] = date
+        names[a][3] = gender
+        names[a][4] = grade
+        names[a][5] = img
+        show()
+        tralai()
+    }
+
+
+</script>
